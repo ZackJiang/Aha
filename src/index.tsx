@@ -2,8 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { RouterProvider } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import router from './router';
 import reportWebVitals from './reportWebVitals';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Ubuntu, sans-serif',
+  },
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          lineHeight: '150%',
+        },
+      },
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -11,7 +27,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>,
 );
 

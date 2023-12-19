@@ -1,7 +1,7 @@
 import PageLayout from '../../components/PageLayout';
 
-function HomePage() {
+function TagsPage() {
   return <PageLayout>1</PageLayout>;
 }
 
-export default HomePage;
+export default TagsPage;
