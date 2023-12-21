@@ -57,7 +57,7 @@ function NavLink(props: NavLinkProps) {
       alignItems="center"
       onClick={() => navigate(to)}
     >
-      <div style={{ position: 'relative' }}>
+      <Box style={{ position: 'relative' }} maxWidth="24px" maxHeight="24px">
         <StyledMenuIcon
           fill={location.pathname === to ? colors.white : colors.gray}
         />
@@ -66,10 +66,10 @@ function NavLink(props: NavLinkProps) {
             <PointIcon />
           </div>
         )}
-      </div>
+      </Box>
       <Box minHeight="18px">
         {location.pathname === to && (
-          <Typography color="white" fontSize="12px" letterSpacing="0.4px">
+          <Typography fontSize="12px" letterSpacing="0.4px">
             {text}
           </Typography>
         )}
@@ -87,7 +87,7 @@ function PageLayout(props: PageLayoutProps) {
   return (
     <StyledBox>
       <NavBar>
-        <Box marginTop="37px">
+        <Box maxWidth="35px" maxHeight="15px" marginTop="37px">
           <Logo />
         </Box>
         <NavLink to={paths.home} text="Home" marginTop="43px" />

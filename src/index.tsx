@@ -15,6 +15,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           lineHeight: '150%',
+          color: '#FFFFFF',
         },
       },
     },
