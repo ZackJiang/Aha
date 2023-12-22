@@ -6,8 +6,9 @@ import Divider from '@mui/material/Divider';
 import PageLayout from '../../components/PageLayout';
 import Slider from '../../components/Slider';
 import Button from '../../components/Button';
+import Profile from '../../components/Profile';
 
-const StyledBox = styled(Box)`
+const SearchBox = styled(Box)`
   padding-top: 54px;
   padding-left: 130px;
 `;
@@ -39,7 +40,7 @@ const StyledTextField = styled(TextField)`
 function HomePage() {
   return (
     <PageLayout>
-      <StyledBox>
+      <SearchBox>
         <Typography fontSize="24px">Search</Typography>
         <StyledTextField
           variant="outlined"
@@ -79,7 +80,8 @@ function HomePage() {
         <Box sx={{ position: 'fixed', bottom: '87px' }}>
           <Button text="Search" />
         </Box>
-      </StyledBox>
+      </SearchBox>
+      <Profile />
     </PageLayout>
   );
 }
