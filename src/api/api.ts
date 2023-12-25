@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ProfilesInfo } from '../common/types';
+import { ProfilesInfo, Tag } from '../common/types';
 
 const API_BASE_URL = 'https://avl-frontend-exam.herokuapp.com/api';
 
@@ -29,4 +29,12 @@ export const fetchProfiles = async (
   }
 };
 
-export const fetchData = async () => {};
+export const fetchTags = async (): Promise<Tag[]> => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/tags`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};

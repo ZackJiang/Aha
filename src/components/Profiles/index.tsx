@@ -77,13 +77,7 @@ function TabPanel(props: TabPanelProps) {
     setLoading(true);
     const { totalPages: dataPages, profiles: dataProfiles } =
       await fetchProfiles(page, pageSize, isFollowingMode);
-    const ne = [...profiles, ...dataProfiles];
-    console.warn(page);
-    console.warn(dataPages);
-    console.warn(ne);
-    console.warn(ne);
-
-    setProfiles(ne);
+    setProfiles([...profiles, ...dataProfiles]);
     setTotalPages(dataPages);
     setLoading(false);
   };
@@ -93,10 +87,6 @@ function TabPanel(props: TabPanelProps) {
 
     const contentElem = contentRef.current;
     const { scrollTop, clientHeight, scrollHeight } = contentElem;
-
-    console.warn(loading);
-    console.warn(page);
-    console.warn(totalPages);
 
     if (
       scrollTop + clientHeight >= scrollHeight - 100 &&

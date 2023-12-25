@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import styled from '@emotion/styled';
 import Typography from '@mui/material/Typography';
+import { Tag } from '../../common/types';
 
 const Card = styled(Box)`
   width: 150px;
@@ -26,19 +27,25 @@ const StyledTypography = styled(Typography)`
   text-overflow: ellipsis;
 `;
 
-function TagCard() {
+interface TagCardProps {
+  tag: Tag;
+}
+
+function TagCard(props: TagCardProps) {
+  const { tag } = props;
+
   return (
     <Box>
       <Card>
         <TagBox>
-          <StyledTypography>Passage Specific</StyledTypography>
+          <StyledTypography>{tag.name}</StyledTypography>
         </TagBox>
       </Card>
       <Typography mt="10px" fontSize="14.9px" letterSpacing="0.14px">
-        Cool
+        {tag.name}
       </Typography>
       <Typography fontSize="11.175px" letterSpacing="0.373px" color="#B2B2B2">
-        350 Results
+        {tag.count} Results
       </Typography>
     </Box>
   );

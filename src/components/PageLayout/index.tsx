@@ -25,6 +25,9 @@ const StyledBox = styled(Box)`
 `;
 
 const NavBar = styled(Box)`
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;

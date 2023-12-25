@@ -1,5 +1,5 @@
 export type Profile = {
-  id: number;
+  id: string;
   avatar: string;
   isFollowing: boolean;
   name: string;
@@ -9,4 +9,10 @@ export type Profile = {
 export type ProfilesInfo = {
   totalPages: number;
   profiles: Profile[];
+};
+
+export type Tag = {
+  id: string;
+  name: string;
+  count: number;
 };
