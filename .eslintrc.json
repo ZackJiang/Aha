@@ -30,7 +30,10 @@
     ],
     "react/react-in-jsx-scope": "off",
     "react/jsx-uses-react": "off",
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "import/named": "off"
+    // "no-unused-vars": "off"
   },
   "settings": {
     "import/extensions": [".js", ".jsx", ".ts", ".tsx", ".mjs"],

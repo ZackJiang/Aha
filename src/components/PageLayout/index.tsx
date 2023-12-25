@@ -93,7 +93,7 @@ function PageLayout(props: PageLayoutProps) {
         <NavLink to={paths.home} text="Home" marginTop="43px" />
         <NavLink to={paths.tags} text="Tags" marginTop="22px" />
       </NavBar>
-      {children}
+      <Box flex={1}>{children}</Box>
     </StyledBox>
   );
 }
