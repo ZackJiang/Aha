@@ -12,18 +12,23 @@ import { searchProfiles } from '../../api/api';
 import { Profile } from '../../common/types';
 
 const Container = styled(Box)`
+  width: 100%;
+  height: 100vh;
   padding-top: 92px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  display: flex;
+  justify-content: center;
 `;
 
 const TitleBox = styled(Box)`
   display: flex;
   align-items: center;
-  padding-left: 87px;
+  margin-left: -44px;
 `;
 
 const ResultsBox = styled(Box)`
   margin-top: 24px;
-  padding-left: 131px;
   display: grid;
   grid-template-columns: repeat(3, 219px);
   column-gap: 34px;
@@ -49,8 +54,6 @@ function Results() {
       setResults([...results, ...dataProfiles]);
       setTotalPages(dataTotalPages);
       setLoading(false);
-      console.warn(page);
-      console.warn(dataTotalPages);
     }
   };
 
@@ -60,37 +63,39 @@ function Results() {
 
   return (
     <Container>
-      <TitleBox>
-        <Arrow />
-        <Typography ml="25px">Results</Typography>
-      </TitleBox>
-      <ResultsBox>
-        {results.map((result) => (
-          <ResultCard key={result.id} result={result} />
-        ))}
-
-        {loading &&
-          Array.from({ length: 6 }).map(() => (
-            <Skeleton
-              variant="rectangular"
-              key={uniqueId('skeleton-')}
-              width="219px"
-              height="146px"
-              style={{ backgroundColor: '#121212' }}
-            />
+      <Box>
+        <TitleBox>
+          <Arrow />
+          <Typography ml="25px">Results</Typography>
+        </TitleBox>
+        <ResultsBox>
+          {results.map((result) => (
+            <ResultCard key={result.id} result={result} />
           ))}
-      </ResultsBox>
 
-      {results.length && page < totalPages && (
-        <Box sx={{ paddingLeft: '131px;', marginTop: '39px' }}>
-          <Button
-            text="More"
-            onClick={() => {
-              setPage(page + 1);
-            }}
-          />
-        </Box>
-      )}
+          {loading &&
+            Array.from({ length: 6 }).map(() => (
+              <Skeleton
+                variant="rectangular"
+                key={uniqueId('skeleton-')}
+                width="219px"
+                height="146px"
+                style={{ backgroundColor: '#121212' }}
+              />
+            ))}
+        </ResultsBox>
+
+        {results.length && page < totalPages && (
+          <Box sx={{ marginTop: '39px' }}>
+            <Button
+              text="More"
+              onClick={() => {
+                setPage(page + 1);
+              }}
+            />
+          </Box>
+        )}
+      </Box>
     </Container>
   );
 }

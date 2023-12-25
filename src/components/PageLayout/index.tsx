@@ -22,15 +22,16 @@ const StyledBox = styled(Box)`
   width: 100%;
   height: 100%;
   background-color: #181818;
+  overflow: scroll;
 `;
 
 const NavBar = styled(Box)`
-  position: fixed;
   top: 0;
   left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 80px;
   width: 80px;
   height: 100vh;
   background-color: #1b1b1b;
