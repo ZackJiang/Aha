@@ -38,3 +38,22 @@ export const fetchTags = async (): Promise<Tag[]> => {
     throw error;
   }
 };
+
+export const searchProfiles = async (
+  page: number,
+  pageSize: number,
+  keyword: string,
+): Promise<ProfilesInfo> => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/users/all?page=${page}&pageSize=${pageSize}&keyword=${keyword}`,
+    );
+    return {
+      totalPages: response.data.totalPages,
+      profiles: response.data.data,
+    };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};

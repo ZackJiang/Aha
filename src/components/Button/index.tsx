@@ -19,11 +19,16 @@ const StyledButton = styled(Button)`
 `;
 interface CustomButtonProps {
   text: string;
+  onClick: () => void;
 }
 
 function CustomButton(props: CustomButtonProps) {
-  const { text } = props;
-  return <StyledButton variant="contained">{text}</StyledButton>;
+  const { text, onClick } = props;
+  return (
+    <StyledButton variant="contained" onClick={onClick}>
+      {text}
+    </StyledButton>
+  );
 }
 
 export default CustomButton;

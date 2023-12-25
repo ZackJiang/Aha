@@ -104,7 +104,14 @@ function CustomValueLabel(props: CustomValueLabelProps) {
   );
 }
 
-function CustomSlider() {
+interface CustomSliderProps {
+  /* eslint-disable no-unused-vars */
+  onChange: (event: Event, newValue: number | number[]) => void;
+}
+
+function CustomSlider(props: CustomSliderProps) {
+  const { onChange } = props;
+
   return (
     <StyledSlider
       min={3}
@@ -114,6 +121,7 @@ function CustomSlider() {
       components={{
         ValueLabel: CustomValueLabel,
       }}
+      onChange={onChange}
     />
   );
 }

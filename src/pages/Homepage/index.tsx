@@ -1,17 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
+import { useLocation } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
 import Search from '../../components/Search';
 import Results from '../../components/Results';
 import Profiles from '../../components/Profiles';
 
 function HomePage() {
-  const [results] = useState(['test']);
+  const location = useLocation();
+
+  const [resultsMode, setResultsMode] = useState(false);
+
+  useEffect(() => {
+    if (location.search) {
+      setResultsMode(true);
+    } else {
+      setResultsMode(false);
+    }
+  }, [location.search]);
 
   return (
     <PageLayout>
       <Box display="flex" justifyContent="space-between">
-        {results.length ? <Results /> : <Search />}
+        {resultsMode ? <Results /> : <Search />}
         <Profiles />
       </Box>
     </PageLayout>

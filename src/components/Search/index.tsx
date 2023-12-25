@@ -1,3 +1,5 @@
+import { useEffect, useState, ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import styled from '@emotion/styled';
 import Typography from '@mui/material/Typography';
@@ -36,6 +38,38 @@ const StyledTextField = styled(TextField)`
 `;
 
 function Search() {
+  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState('');
+  const [sliderValue, setSliderValue] = useState(3);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (error) {
+      setError('');
+    }
+  }, [keyword]);
+
+  const handleKeywordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
+  };
+
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    if (Array.isArray(newValue)) {
+      setSliderValue(newValue[0]);
+    } else {
+      setSliderValue(newValue);
+    }
+  };
+
+  const onClick = () => {
+    if (keyword.trim() === '') {
+      setError('Please enter a keyword.');
+      return;
+    }
+    setError('');
+    navigate(`?page=${1}&pageSize=${sliderValue}&keyword=${keyword}`);
+  };
+
   return (
     <SearchBox>
       <Typography fontSize="24px">Search</Typography>
@@ -44,7 +78,14 @@ function Search() {
         InputProps={{
           placeholder: 'Keyword',
         }}
+        value={keyword}
+        onChange={handleKeywordChange}
       />
+      {error && (
+        <Typography color="error" fontSize="14px" mt="8px">
+          {error}
+        </Typography>
+      )}
       <Divider
         sx={{
           marginTop: '30px',
@@ -57,13 +98,13 @@ function Search() {
       />
       <Typography fontSize="24px"># of results per page</Typography>
       <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
-        <Typography fontSize="48px">30</Typography>
+        <Typography fontSize="48px">{sliderValue}</Typography>
         <Typography fontSize="16px" letterSpacing="0.15px" marginLeft="10px">
           results
         </Typography>
       </Box>
       <Box>
-        <Slider />
+        <Slider onChange={handleSliderChange} />
       </Box>
       <Divider
         sx={{
@@ -75,7 +116,7 @@ function Search() {
         }}
       />
       <Box sx={{ position: 'fixed', bottom: '87px' }}>
-        <Button text="Search" />
+        <Button text="Search" onClick={onClick} />
       </Box>
     </SearchBox>
   );
