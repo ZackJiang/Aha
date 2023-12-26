@@ -2,7 +2,6 @@ import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 
 const StyledButton = styled(Button)`
-  width: 311px;
   padding: 13px 16px;
   background: white;
   color: #121212;
@@ -20,15 +19,20 @@ const StyledButton = styled(Button)`
 interface CustomButtonProps {
   text: string;
   onClick: () => void;
+  width?: string;
 }
 
 function CustomButton(props: CustomButtonProps) {
-  const { text, onClick } = props;
+  const { text, onClick, width } = props;
   return (
-    <StyledButton variant="contained" onClick={onClick}>
+    <StyledButton variant="contained" onClick={onClick} sx={{ width }}>
       {text}
     </StyledButton>
   );
 }
+
+CustomButton.defaultProps = {
+  width: '311px',
+};
 
 export default CustomButton;

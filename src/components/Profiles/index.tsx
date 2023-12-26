@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { uniqueId } from 'lodash';
 import Box from '@mui/material/Box';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Skeleton from '@mui/material/Skeleton';
@@ -16,6 +17,12 @@ const ProfilesBox = styled(Box)`
   height: 100vh;
   background-color: #1b1b1b;
   overflow: hidden;
+
+  ${() => css`
+    @media (max-width: 1440px) {
+      display: none;
+    }
+  `}
 `;
 
 const StyledTabs = styled(Tabs)`

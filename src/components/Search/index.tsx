@@ -1,22 +1,37 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import styled from '@emotion/styled';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Slider from '../Slider';
 import Button from '../Button';
 
-const SearchBox = styled(Box)`
-  padding-top: 54px;
-  padding-left: 130px;
+const searchBoxPadding = (isSmallScreen: boolean) =>
+  isSmallScreen ? '0px 20px 24px' : '54px 130px 87px';
+
+const errorTextStyle = {
+  color: 'error',
+  fontSize: '14px',
+  mt: '8px',
+};
+
+const SearchBox = styled(Box)<{ isSmallScreen: boolean }>`
+  width: 100%;
+  height: 100%;
+  padding: ${(props) => searchBoxPadding(props.isSmallScreen)};
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
 `;
 
 const StyledTextField = styled(TextField)`
   margin-top: 20px;
   &.MuiTextField-root {
-    width: 725px;
+    width: 100%;
     height: 60px;
 
     & .MuiOutlinedInput-root {
@@ -38,6 +53,8 @@ const StyledTextField = styled(TextField)`
 `;
 
 function Search() {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
   const [sliderValue, setSliderValue] = useState(3);
@@ -71,52 +88,62 @@ function Search() {
   };
 
   return (
-    <SearchBox>
-      <Typography fontSize="24px">Search</Typography>
-      <StyledTextField
-        variant="outlined"
-        InputProps={{
-          placeholder: 'Keyword',
-        }}
-        value={keyword}
-        onChange={handleKeywordChange}
-      />
-      {error && (
-        <Typography color="error" fontSize="14px" mt="8px">
-          {error}
-        </Typography>
-      )}
-      <Divider
-        sx={{
-          marginTop: '30px',
-          marginBottom: '30px',
-          background: 'white',
-          opacity: 0.1,
-          width: '725px',
-          height: '1px',
-        }}
-      />
-      <Typography fontSize="24px"># of results per page</Typography>
-      <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
-        <Typography fontSize="48px">{sliderValue}</Typography>
-        <Typography fontSize="16px" letterSpacing="0.15px" marginLeft="10px">
-          results
-        </Typography>
-      </Box>
-      <Box>
-        <Slider onChange={handleSliderChange} />
-      </Box>
-      <Divider
-        sx={{
-          marginTop: '30px',
-          background: 'white',
-          opacity: 0.1,
-          width: '725px',
-          height: '1px',
-        }}
-      />
-      <Box sx={{ position: 'fixed', bottom: '87px' }}>
-        <Button text="Search" onClick={onClick} />
+    <SearchBox isSmallScreen={isSmallScreen}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        width="100%"
+        justifyContent="space-between"
+      >
+        <Box>
+          <Typography fontSize="24px">Search</Typography>
+          <StyledTextField
+            variant="outlined"
+            InputProps={{
+              placeholder: 'Keyword',
+            }}
+            value={keyword}
+            onChange={handleKeywordChange}
+          />
+          {error && <Typography {...errorTextStyle}>{error}</Typography>}
+          <Divider
+            sx={{
+              marginTop: '30px',
+              marginBottom: '30px',
+              background: 'white',
+              opacity: 0.1,
+              height: '1px',
+            }}
+          />
+          <Typography fontSize="24px"># of results per page</Typography>
+          <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+            <Typography fontSize="48px">{sliderValue}</Typography>
+            <Typography
+              fontSize="16px"
+              letterSpacing="0.15px"
+              marginLeft="10px"
+            >
+              results
+            </Typography>
+          </Box>
+          <Box>
+            <Slider onChange={handleSliderChange} />
+          </Box>
+          <Divider
+            sx={{
+              marginTop: '30px',
+              background: 'white',
+              opacity: 0.1,
+              height: '1px',
+            }}
+          />
+        </Box>
+
+        <Button
+          text="Search"
+          onClick={onClick}
+          width={isSmallScreen ? '100%' : '311px'}
+        />
       </Box>
     </SearchBox>
   );

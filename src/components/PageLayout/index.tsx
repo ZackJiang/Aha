@@ -1,8 +1,10 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 import styled from '@emotion/styled';
 import Typography from '@mui/material/Typography';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Logo from '../../assets/logo';
 import MenuIcon from '../../assets/menuIcon';
 import PointIcon from '../../assets/pointIcon';
@@ -17,22 +19,29 @@ const paths = {
   tags: '/tags',
 };
 
-const StyledBox = styled(Box)`
+const StyledBox = styled(Box)<{ isSmallScreen: boolean }>`
   display: flex;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: #181818;
-  overflow: scroll;
+  justify-content: space-between;
+  flex-direction: ${({ isSmallScreen }) => (isSmallScreen ? 'column' : 'row')};
+`;
+
+const BottomMenu = styled(Box)`
+  height: 66px;
+  width: 100%;
+  background-color: #1b1b1b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const NavBar = styled(Box)`
-  top: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-width: 80px;
-  width: 80px;
   height: 100vh;
   background-color: #1b1b1b;
 `;
@@ -87,17 +96,50 @@ interface PageLayoutProps {
 }
 
 function PageLayout(props: PageLayoutProps) {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const { children } = props;
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleMenuClick = (path: string) => {
+    navigate(path);
+  };
+
   return (
-    <StyledBox>
-      <NavBar>
-        <Box maxWidth="35px" maxHeight="15px" marginTop="37px">
-          <Logo />
-        </Box>
-        <NavLink to={paths.home} text="Home" marginTop="43px" />
-        <NavLink to={paths.tags} text="Tags" marginTop="22px" />
-      </NavBar>
-      <Box flex={1}>{children}</Box>
+    <StyledBox isSmallScreen={isSmallScreen}>
+      {isSmallScreen ? (
+        <>
+          <Box height="70px" marginTop="28px" marginLeft="21px">
+            <Logo />
+          </Box>
+          <Box flex={1}>{children}</Box>
+          {location.pathname !== paths.tags && (
+            <BottomMenu>
+              <StyledMenuIcon
+                fill={colors.white}
+                onClick={() => handleMenuClick(paths.home)}
+              />
+              <StyledMenuIcon
+                fill={colors.gray}
+                sx={{ marginLeft: '50px' }}
+                onClick={() => handleMenuClick(paths.tags)}
+              />
+            </BottomMenu>
+          )}
+        </>
+      ) : (
+        <>
+          <NavBar>
+            <Box maxWidth="35px" maxHeight="15px" marginTop="37px">
+              <Logo />
+            </Box>
+            <NavLink to={paths.home} text="Home" marginTop="43px" />
+            <NavLink to={paths.tags} text="Tags" marginTop="22px" />
+          </NavBar>
+          <Box flex={1}>{children}</Box>
+        </>
+      )}
     </StyledBox>
   );
 }

@@ -21,8 +21,13 @@ function HomePage() {
 
   return (
     <PageLayout>
-      <Box display="flex" justifyContent="space-between">
-        {resultsMode ? <Results /> : <Search />}
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        width="100%"
+        height="100%"
+      >
+        <Box flex={1}>{resultsMode ? <Results /> : <Search />}</Box>
         <Profiles />
       </Box>
     </PageLayout>
