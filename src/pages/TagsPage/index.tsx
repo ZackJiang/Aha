@@ -20,10 +20,6 @@ const Container = styled(Box)`
     justify-content: center;
     overflow-y: scroll;
   `}
-
-  ${media.small.down`
-    padding: 0px 20px;
-  `}
 `;
 
 const StyledTypography = styled(Typography)`
@@ -35,6 +31,7 @@ const StyledTypography = styled(Typography)`
   ${media.small.down`
     font-size: 24px;
     margin-top: 20px;
+    margin-left: 20px;
   `}
 `;
 const TagsBox = styled(Box)`
@@ -43,8 +40,9 @@ const TagsBox = styled(Box)`
   column-gap: 24px;
 
   ${media.small.down`
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 150px);
     row-gap: 24px;
+     padding: 0px 25px;
   `}
 
   ${media.small.up`
