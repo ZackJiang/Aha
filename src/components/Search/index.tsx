@@ -1,17 +1,13 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import styled from '@emotion/styled';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import Slider from '../Slider';
 import Button from '../Button';
-
-const searchBoxPadding = (isSmallScreen: boolean) =>
-  isSmallScreen ? '0px 20px 24px' : '54px 130px 87px';
+import media from '../../common/constants';
 
 const errorTextStyle = {
   color: 'error',
@@ -19,13 +15,17 @@ const errorTextStyle = {
   mt: '8px',
 };
 
-const SearchBox = styled(Box)<{ isSmallScreen: boolean }>`
+const SearchBox = styled(Box)`
   width: 100%;
   height: 100%;
-  padding: ${(props) => searchBoxPadding(props.isSmallScreen)};
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+  padding: 54px 130px 87px;
+
+  ${media.small.down`
+    padding: 0px 20px 24px;
+  `}
 `;
 
 const StyledTextField = styled(TextField)`
@@ -53,8 +53,6 @@ const StyledTextField = styled(TextField)`
 `;
 
 function Search() {
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
   const [sliderValue, setSliderValue] = useState(3);
@@ -88,7 +86,7 @@ function Search() {
   };
 
   return (
-    <SearchBox isSmallScreen={isSmallScreen}>
+    <SearchBox>
       <Box
         display="flex"
         flexDirection="column"
@@ -139,11 +137,7 @@ function Search() {
           />
         </Box>
 
-        <Button
-          text="Search"
-          onClick={onClick}
-          width={isSmallScreen ? '100%' : '343px'}
-        />
+        <Button text="Search" onClick={onClick} />
       </Box>
     </SearchBox>
   );

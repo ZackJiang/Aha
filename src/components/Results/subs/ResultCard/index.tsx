@@ -3,31 +3,31 @@ import styled from '@emotion/styled';
 import Typography from '@mui/material/Typography';
 import { Profile } from '../../../../common/types';
 import avatarImg from '../../../../assets/dog.jpg';
+import media from '../../../../common/constants';
 
 const ImageBox = styled(Box)`
   background-image: url(${avatarImg});
   background-size: cover;
   background-position: center;
+  width: 219px;
   height: 146px;
+
+  ${media.small.down`
+    width: 100%;
+    height: 222.67px;
+  `}
 `;
 
 interface ResultCardProps {
   result: Profile;
-  isMobileView: boolean;
 }
 
 function ResultCard(props: ResultCardProps) {
-  const { result, isMobileView } = props;
+  const { result } = props;
 
   return (
     <Box>
-      <ImageBox
-        sx={
-          isMobileView
-            ? { width: '100%', height: '222.67px' }
-            : { width: '219px', height: '146px' }
-        }
-      />
+      <ImageBox />
       <Typography mt="12px" fontSize="14.9px" letterSpacing="0.14px">
         {result.name}
       </Typography>

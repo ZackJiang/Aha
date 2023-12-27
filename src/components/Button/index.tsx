@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
+import media from '../../common/constants';
 
 const StyledButton = styled(Button)`
   padding: 13px 16px;
@@ -9,30 +10,30 @@ const StyledButton = styled(Button)`
   font-weight: 700;
   line-height: 100%;
   border-radius: 4px;
+  width: 343px;
 
   &:hover {
     border: 1px solid #fff;
     background: #121212;
     color: #fff;
   }
+
+  ${media.small.down`
+    width: 100%;
+  `}
 `;
 interface CustomButtonProps {
   text: string;
   onClick: () => void;
-  width?: string;
 }
 
 function CustomButton(props: CustomButtonProps) {
-  const { text, onClick, width } = props;
+  const { text, onClick } = props;
   return (
-    <StyledButton variant="contained" onClick={onClick} sx={{ width }}>
+    <StyledButton variant="contained" onClick={onClick}>
       {text}
     </StyledButton>
   );
 }
-
-CustomButton.defaultProps = {
-  width: '343px',
-};
 
 export default CustomButton;

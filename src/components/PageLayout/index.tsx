@@ -9,6 +9,7 @@ import Logo from '../../assets/logo';
 import MenuIcon from '../../assets/menuIcon';
 import PointIcon from '../../assets/pointIcon';
 import Arrow from '../../assets/arrow';
+import media from '../../common/constants';
 
 const colors = {
   white: '#FFFFFF',
@@ -20,12 +21,16 @@ const paths = {
   tags: '/tags',
 };
 
-const StyledBox = styled(Box)<{ isSmallScreen: boolean }>`
+const StyledBox = styled(Box)`
   display: flex;
   width: 100%;
   height: 100vh;
   justify-cotent: space-between;
-  flex-direction: ${({ isSmallScreen }) => (isSmallScreen ? 'column' : 'row')};
+  flex-direction: row;
+
+  ${media.small.down`
+    flex-direction: column;
+  `}
 `;
 
 const BottomMenu = styled(Box)`
@@ -107,7 +112,7 @@ function PageLayout(props: PageLayoutProps) {
   };
 
   return (
-    <StyledBox isSmallScreen={isSmallScreen}>
+    <StyledBox>
       {isSmallScreen ? (
         <>
           {location.pathname === paths.home && !location.search ? (
