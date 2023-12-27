@@ -30,6 +30,7 @@ const StyledBox = styled(Box)`
 
   ${media.small.down`
     flex-direction: column;
+    min-height: 812px;
   `}
 `;
 

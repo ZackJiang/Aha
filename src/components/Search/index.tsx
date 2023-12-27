@@ -52,6 +52,48 @@ const StyledTextField = styled(TextField)`
   }
 `;
 
+const StyledDivider = styled(Divider)`
+  background: white;
+  opacity: 0.1;
+  height: 1px;
+`;
+
+const DesktopDivider = styled(StyledDivider)`
+  margin-top: 30px;
+
+  ${media.small.down`
+    display: none;
+  `}
+`;
+
+const MobileDivider = styled(StyledDivider)`
+  display: none;
+
+  ${media.small.down`
+    display: block;
+    margin-bottom: 80px;
+  `}
+`;
+
+const StyledTypography = styled(Typography)`
+  font-size: 24px;
+  margin-top: 30px;
+
+  ${media.small.down`
+    margin-top: 28px;
+  `}
+`;
+
+const StyledResultBox = styled(Box)`
+  display: flex;
+  align-items: baseline;
+  margin-top: 20px;
+
+  ${media.small.down`
+    margin-top: 16px;
+  `}
+`;
+
 function Search() {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
@@ -104,17 +146,11 @@ function Search() {
             onChange={handleKeywordChange}
           />
           {error && <Typography {...errorTextStyle}>{error}</Typography>}
-          <Divider
-            sx={{
-              marginTop: '30px',
-              marginBottom: '30px',
-              background: 'white',
-              opacity: 0.1,
-              height: '1px',
-            }}
-          />
-          <Typography fontSize="24px"># of results per page</Typography>
-          <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
+          <DesktopDivider />
+          <StyledTypography fontSize="24px">
+            # of results per page
+          </StyledTypography>
+          <StyledResultBox>
             <Typography fontSize="48px">{sliderValue}</Typography>
             <Typography
               fontSize="16px"
@@ -123,21 +159,16 @@ function Search() {
             >
               results
             </Typography>
-          </Box>
+          </StyledResultBox>
           <Box>
             <Slider onChange={handleSliderChange} />
           </Box>
-          <Divider
-            sx={{
-              marginTop: '30px',
-              background: 'white',
-              opacity: 0.1,
-              height: '1px',
-            }}
-          />
+          <DesktopDivider />
         </Box>
-
-        <Button text="Search" onClick={onClick} />
+        <Box>
+          <MobileDivider />
+          <Button text="Search" onClick={onClick} />
+        </Box>
       </Box>
     </SearchBox>
   );
