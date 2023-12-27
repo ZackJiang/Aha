@@ -8,20 +8,26 @@ const ImageBox = styled(Box)`
   background-image: url(${avatarImg});
   background-size: cover;
   background-position: center;
-  width: 219px;
   height: 146px;
 `;
 
 interface ResultCardProps {
   result: Profile;
+  isMobileView: boolean;
 }
 
 function ResultCard(props: ResultCardProps) {
-  const { result } = props;
+  const { result, isMobileView } = props;
 
   return (
     <Box>
-      <ImageBox />
+      <ImageBox
+        sx={
+          isMobileView
+            ? { width: '100%', height: '222.67px' }
+            : { width: '219px', height: '146px' }
+        }
+      />
       <Typography mt="12px" fontSize="14.9px" letterSpacing="0.14px">
         {result.name}
       </Typography>

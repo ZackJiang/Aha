@@ -8,6 +8,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Logo from '../../assets/logo';
 import MenuIcon from '../../assets/menuIcon';
 import PointIcon from '../../assets/pointIcon';
+import Arrow from '../../assets/arrow';
 
 const colors = {
   white: '#FFFFFF',
@@ -21,10 +22,9 @@ const paths = {
 
 const StyledBox = styled(Box)<{ isSmallScreen: boolean }>`
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  background-color: #181818;
-  justify-content: space-between;
+  justify-cotent: space-between;
   flex-direction: ${({ isSmallScreen }) => (isSmallScreen ? 'column' : 'row')};
 `;
 
@@ -110,11 +110,32 @@ function PageLayout(props: PageLayoutProps) {
     <StyledBox isSmallScreen={isSmallScreen}>
       {isSmallScreen ? (
         <>
-          <Box height="70px" marginTop="28px" marginLeft="21px">
-            <Logo />
-          </Box>
+          {location.pathname === paths.home && !location.search ? (
+            <Box height="70px" marginTop="28px" marginLeft="21px">
+              <Logo />
+            </Box>
+          ) : (
+            <Box
+              height="70px"
+              marginTop="17px"
+              marginLeft="19px"
+              display="flex"
+              alignItems="center"
+            >
+              <Box
+                width="26px"
+                height="26px"
+                onClick={() => navigate(paths.home)}
+              >
+                <Arrow />
+              </Box>
+              <Typography ml="10px" fontSize="24px">
+                Home page
+              </Typography>
+            </Box>
+          )}
           <Box flex={1}>{children}</Box>
-          {location.pathname !== paths.tags && (
+          {location.pathname === paths.home && !location.search && (
             <BottomMenu>
               <StyledMenuIcon
                 fill={colors.white}

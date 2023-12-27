@@ -32,7 +32,7 @@ function CustomButton(props: CustomButtonProps) {
 }
 
 CustomButton.defaultProps = {
-  width: '311px',
+  width: '343px',
 };
 
 export default CustomButton;

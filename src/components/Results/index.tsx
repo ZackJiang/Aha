@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import { uniqueId } from 'lodash';
 import styled from '@emotion/styled';
@@ -11,32 +13,56 @@ import Button from '../Button';
 import { searchProfiles } from '../../api/api';
 import { Profile } from '../../common/types';
 
-const Container = styled(Box)`
-  width: 100%;
-  height: 100vh;
-  padding-top: 92px;
-  box-sizing: border-box;
-  overflow-y: scroll;
-  display: flex;
-  justify-content: center;
+const Container = styled(Box)<{ isSmallScreen: boolean }>`
+  ${(props) =>
+    props.isSmallScreen
+      ? `
+        padding: 0px 20px;
+      `
+      : `
+        width: 100%;
+        height: 100vh;
+        padding-top: 92px;
+        box-sizing: border-box;
+        overflow-y: scroll;
+        display: flex;
+        justify-content: center;
+      `};
 `;
 
-const TitleBox = styled(Box)`
+const TitleBox = styled(Box)<{ isSmallScreen: boolean }>`
   display: flex;
   align-items: center;
-  margin-left: -44px;
+  margin-left: ${(props) => (props.isSmallScreen ? 'unset' : '-44px')};
+  margin-top: ${(props) => (props.isSmallScreen ? '20px' : 'unset')};
 `;
 
-const ResultsBox = styled(Box)`
+const StyledTypography = styled(Typography)<{ isSmallScreen: boolean }>`
+  ${(props) =>
+    props.isSmallScreen
+      ? `
+        font-size: 24px;
+      `
+      : `
+        font-size: 30px;
+        margin-left: 25px;
+      `};
+}
+`;
+
+const ResultsBox = styled(Box)<{ isSmallScreen: boolean }>`
   margin-top: 24px;
   display: grid;
-  grid-template-columns: repeat(3, 219px);
-  column-gap: 34px;
+  grid-template-columns: ${(props) =>
+    props.isSmallScreen ? 'repeat(1, 1fr)' : 'repeat(3, 219px)'};
+  column-gap: ${(props) => (props.isSmallScreen ? '0px' : '34px')};
   row-gap: 31px; 
 }
 `;
 
 function Results() {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [results, setResults] = useState<Profile[]>([]);
   const location = useLocation();
   const [page, setPage] = useState(1);
@@ -62,15 +88,22 @@ function Results() {
   }, [page]);
 
   return (
-    <Container>
+    <Container isSmallScreen={isSmallScreen}>
       <Box>
-        <TitleBox>
-          <Arrow />
-          <Typography ml="25px">Results</Typography>
+        <TitleBox isSmallScreen={isSmallScreen}>
+          {!isSmallScreen && <Arrow />}
+
+          <StyledTypography isSmallScreen={isSmallScreen}>
+            Results
+          </StyledTypography>
         </TitleBox>
-        <ResultsBox>
+        <ResultsBox isSmallScreen={isSmallScreen}>
           {results.map((result) => (
-            <ResultCard key={result.id} result={result} />
+            <ResultCard
+              key={result.id}
+              result={result}
+              isMobileView={isSmallScreen}
+            />
           ))}
 
           {loading &&
@@ -92,6 +125,7 @@ function Results() {
               onClick={() => {
                 setPage(page + 1);
               }}
+              width={isSmallScreen ? '100%' : '343px'}
             />
           </Box>
         )}

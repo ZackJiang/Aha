@@ -142,7 +142,7 @@ function Search() {
         <Button
           text="Search"
           onClick={onClick}
-          width={isSmallScreen ? '100%' : '311px'}
+          width={isSmallScreen ? '100%' : '343px'}
         />
       </Box>
     </SearchBox>
