@@ -1,19 +1,27 @@
-import React from 'react';
-import Box from '@mui/material/Box';
+import { useState } from 'react';
 import Slider from '@mui/material/Slider';
 import styled from '@emotion/styled';
 
-interface ValueToIndexMap {
+interface ValueToDataMap {
   [key: number]: number;
 }
 
-const valueToIndex: ValueToIndexMap = {
+const markValueToDataIndex: ValueToDataMap = {
   3: 0,
-  6: 1,
-  9: 2,
-  12: 3,
-  15: 4,
+  11.72: 1,
+  20.21: 2,
+  30.06: 3,
+  38.51: 4,
   50: 5,
+};
+
+const markValueToLabelValue: ValueToDataMap = {
+  3: 3,
+  11.72: 6,
+  20.21: 9,
+  30.06: 12,
+  38.51: 15,
+  50: 50,
 };
 
 const marks = [
@@ -22,19 +30,19 @@ const marks = [
     label: '3',
   },
   {
-    value: 6,
+    value: 11.72,
     label: '6',
   },
   {
-    value: 9,
+    value: 20.21,
     label: '9',
   },
   {
-    value: 12,
+    value: 30.06,
     label: '12',
   },
   {
-    value: 15,
+    value: 38.51,
     label: '15',
   },
   {
@@ -43,7 +51,7 @@ const marks = [
   },
 ];
 
-const StyledSlider = styled(Slider)`
+const StyledSlider = styled(Slider)<{ activeDataIndex: number }>`
   height: 8px;
   color: rgba(255, 255, 255, 0.3);
   padding: 8px 0px;
@@ -54,6 +62,20 @@ const StyledSlider = styled(Slider)`
 
   .MuiSlider-thumb {
     background: #ffd25f;
+
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      background: black;
+      border-radius: 50%;
+    }
   }
 
   .MuiSlider-mark {
@@ -69,48 +91,41 @@ const StyledSlider = styled(Slider)`
     opacity: 0.5;
   }
 
-  .MuiSlider-markLabel[data-index='${(props) =>
-      valueToIndex[Number(props['aria-valuenow'])!]}'] {
-    // color: white;
-    // opacity: 1;
+  .MuiSlider-markLabel[data-index='0'] {
+    transform: translateX(0%);
   }
+
+  .MuiSlider-markLabel[data-index='5'] {
+    transform: translateX(-100%);
+  }
+
+  ${(props: { activeDataIndex: number }) => `
+    .MuiSlider-markLabelActive[data-index='${props.activeDataIndex}'] {
+      color: white;
+      opacity: 1;
+    }
+    
+  `}
 `;
-
-interface CustomValueLabelProps {
-  children: React.ReactNode;
-  value: number;
-  open: boolean;
-}
-
-function CustomValueLabel(props: CustomValueLabelProps) {
-  const { children, open, value } = props;
-  const index = valueToIndex[value];
-
-  return (
-    <Box
-      component="span"
-      sx={{
-        left: `${index * 124}px`, // 124px 是相邻标记之间的距离
-        position: 'absolute',
-        transform: open ? 'translateY(-8px)' : 'translateY(0)',
-        whiteSpace: 'nowrap',
-        top: -22,
-        fontSize: '0.8em',
-        background: 'red',
-      }}
-    >
-      {children}
-    </Box>
-  );
-}
 
 interface CustomSliderProps {
   /* eslint-disable no-unused-vars */
-  onChange: (event: Event, newValue: number | number[]) => void;
+  onChange: (newValue: number) => void;
 }
 
 function CustomSlider(props: CustomSliderProps) {
   const { onChange } = props;
+  const [activeDataIndex, setActiveDataIndex] = useState<number>(0);
+
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    if (Array.isArray(newValue)) {
+      onChange(markValueToLabelValue[newValue[0]]);
+      setActiveDataIndex(markValueToDataIndex[newValue[0]]);
+    } else {
+      onChange(markValueToLabelValue[newValue]);
+      setActiveDataIndex(markValueToDataIndex[newValue]);
+    }
+  };
 
   return (
     <StyledSlider
@@ -118,10 +133,8 @@ function CustomSlider(props: CustomSliderProps) {
       max={50}
       step={null}
       marks={marks}
-      components={{
-        ValueLabel: CustomValueLabel,
-      }}
-      onChange={onChange}
+      onChange={handleSliderChange}
+      activeDataIndex={activeDataIndex}
     />
   );
 }

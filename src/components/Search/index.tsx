@@ -110,12 +110,8 @@ function Search() {
     setKeyword(event.target.value);
   };
 
-  const handleSliderChange = (event: Event, newValue: number | number[]) => {
-    if (Array.isArray(newValue)) {
-      setSliderValue(newValue[0]);
-    } else {
-      setSliderValue(newValue);
-    }
+  const handleSliderChange = (newValue: number) => {
+    setSliderValue(newValue);
   };
 
   const onClick = () => {
@@ -160,9 +156,7 @@ function Search() {
               results
             </Typography>
           </StyledResultBox>
-          <Box>
-            <Slider onChange={handleSliderChange} />
-          </Box>
+          <Slider onChange={handleSliderChange} />
           <DesktopDivider />
         </Box>
         <Box>
