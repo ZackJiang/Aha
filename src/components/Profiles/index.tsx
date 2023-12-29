@@ -19,7 +19,7 @@ const ProfilesBox = styled(Box)`
   overflow: hidden;
 
   ${() => css`
-    @media (max-width: 1440px) {
+    @media (max-width: 1439px) {
       display: none;
     }
   `}
@@ -34,7 +34,7 @@ const StyledTabs = styled(Tabs)`
     width: 50%;
     padding: 0;
     min-height: 0;
-    padding-bottom: 13px;
+    padding-bottom: 10px;
   }
 
   .MuiTabs-indicator {
@@ -45,6 +45,9 @@ const StyledTabs = styled(Tabs)`
 const StyledTab = styled(Tab)`
   color: #929292;
   text-transform: capitalize;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
 
   &.Mui-selected {
     color: #fff;
@@ -160,7 +163,7 @@ function Profiles() {
           indicatorColor="primary"
         >
           <StyledTab label="Followers" {...a11yProps(0)} />
-          <StyledTab label="Followings" {...a11yProps(1)} />
+          <StyledTab label="Following" {...a11yProps(1)} />
         </StyledTabs>
       </Box>
       <TabPanel value={value} index={0} isFollowingMode={false} />

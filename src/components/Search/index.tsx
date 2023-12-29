@@ -30,6 +30,7 @@ const SearchBox = styled(Box)`
 
 const StyledTextField = styled(TextField)`
   margin-top: 20px;
+
   &.MuiTextField-root {
     width: 100%;
     height: 60px;
@@ -47,8 +48,18 @@ const StyledTextField = styled(TextField)`
 
     & .MuiOutlinedInput-input {
       color: white;
-      padding: 20px 18px;
+      padding: 20px 18px 19px;
     }
+  }
+
+  input::placeholder {
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.25px;
+  }
+
+  input {
+    height: 21px;
   }
 `;
 
@@ -144,19 +155,26 @@ function Search() {
           {error && <Typography {...errorTextStyle}>{error}</Typography>}
           <DesktopDivider />
           <StyledTypography fontSize="24px">
-            # of results per page
+            # Of Results Per Page
           </StyledTypography>
           <StyledResultBox>
-            <Typography fontSize="48px">{sliderValue}</Typography>
+            <Typography fontSize="48px" fontWeight={700} lineHeight="50px">
+              {sliderValue}
+            </Typography>
             <Typography
               fontSize="16px"
               letterSpacing="0.15px"
               marginLeft="10px"
+              position="relative"
+              top="-4px"
             >
               results
             </Typography>
           </StyledResultBox>
-          <Slider onChange={handleSliderChange} />
+          <Box marginTop="24px">
+            <Slider onChange={handleSliderChange} />
+          </Box>
+
           <DesktopDivider />
         </Box>
         <Box>
