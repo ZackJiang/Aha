@@ -124,6 +124,7 @@ function PageLayout(props: PageLayoutProps) {
             <Box
               height="70px"
               marginTop="17px"
+              marginBottom="17px"
               marginLeft="19px"
               display="flex"
               alignItems="center"
@@ -135,8 +136,8 @@ function PageLayout(props: PageLayoutProps) {
               >
                 <Arrow />
               </Box>
-              <Typography ml="10px" fontSize="24px">
-                Home page
+              <Typography ml="13.16px" fontSize="24px">
+                Home Page
               </Typography>
             </Box>
           )}
