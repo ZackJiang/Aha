@@ -46,7 +46,7 @@ const StyledTypography = styled(Typography)`
   margin-left: 25px;
 
   ${media.small.down`
-    margin-top: 25px;
+    font-size: 24px;
     margin-left: 0px;
   `}
 `;
@@ -59,12 +59,17 @@ const ResultsBox = styled(Box)`
   ${media.small.down`
     grid-template-columns: repeat(1, 1fr);
     column-gap: 0px;
+    row-gap: 40px;
   `}
 
   ${media.small.up`
     grid-template-columns: repeat(3, 219px);
     column-gap: 34px;
-  `}
+
+    & > :nth-child(n+7) {
+      margin-top: 19px;
+    }
+  `};
 `;
 
 const StyledArrowBox = styled(Box)`

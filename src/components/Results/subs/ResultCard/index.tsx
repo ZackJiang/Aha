@@ -18,6 +18,16 @@ const ImageBox = styled(Box)`
   `}
 `;
 
+const ResultName = styled(Typography)`
+  margin-top: 12px;
+  font-size: 14.9px;
+  letter-spacing: 0.14px;
+
+  ${media.small.down`
+   margin-top:20.33px;
+  `}
+`;
+
 interface ResultCardProps {
   result: Profile;
 }
@@ -28,9 +38,7 @@ function ResultCard(props: ResultCardProps) {
   return (
     <Box>
       <ImageBox />
-      <Typography mt="12px" fontSize="14.9px" letterSpacing="0.14px">
-        {result.name}
-      </Typography>
+      <ResultName>{result.name}</ResultName>
       <Typography fontSize="11.175px" letterSpacing="0.373px" color="#B2B2B2">
         {result.username}
       </Typography>
