@@ -54,7 +54,11 @@ const marks = [
 const StyledSlider = styled(Slider)<{ activeDataIndex: number }>`
   height: 8px;
   color: rgba(255, 255, 255, 0.3);
-  padding: 8px 0px;
+
+  &.MuiSlider-root {
+    padding: 0px 0px;
+    margin-bottom: 0px;
+  }
 
   .MuiSlider-track {
     background: linear-gradient(to right, #ff5c01, #ffd25f);
@@ -62,7 +66,8 @@ const StyledSlider = styled(Slider)<{ activeDataIndex: number }>`
 
   .MuiSlider-thumb {
     background: #ffd25f;
-
+    width: 26px;
+    height: 26px;
     position: relative;
 
     &:after {
@@ -71,8 +76,8 @@ const StyledSlider = styled(Slider)<{ activeDataIndex: number }>`
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 10px;
-      height: 10px;
+      width: 13px;
+      height: 13px;
       background: black;
       border-radius: 50%;
     }
@@ -83,6 +88,7 @@ const StyledSlider = styled(Slider)<{ activeDataIndex: number }>`
   }
 
   .MuiSlider-markLabel {
+    top: 18px;
     color: white;
     font-size: 16px;
     font-weight: 500;

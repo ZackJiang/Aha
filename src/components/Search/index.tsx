@@ -31,6 +31,10 @@ const SearchBox = styled(Box)`
 const StyledTextField = styled(TextField)`
   margin-top: 20px;
 
+  ${media.small.down`
+   margin-top: 16px;
+  `}
+
   &.MuiTextField-root {
     width: 100%;
     height: 60px;
@@ -171,10 +175,9 @@ function Search() {
               results
             </Typography>
           </StyledResultBox>
-          <Box marginTop="24px">
+          <Box marginTop="18px" height="52px">
             <Slider onChange={handleSliderChange} />
           </Box>
-
           <DesktopDivider />
         </Box>
         <Box>

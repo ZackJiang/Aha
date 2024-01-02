@@ -117,7 +117,12 @@ function PageLayout(props: PageLayoutProps) {
       {isSmallScreen ? (
         <>
           {location.pathname === paths.home && !location.search ? (
-            <Box height="70px" marginTop="28px" marginLeft="21px">
+            <Box
+              height="70px"
+              paddingLeft="21px"
+              paddingTop="28px"
+              boxSizing="border-box"
+            >
               <Logo />
             </Box>
           ) : (
