@@ -21,11 +21,27 @@ const paths = {
   tags: '/tags',
 };
 
+const CommonIconContainer = styled(Box)`
+  position: relative;
+  max-width: 24px;
+  max-height: 24px;
+
+  svg {
+    cursor: pointer;
+  }
+`;
+
+const NavLinkContainer = styled(Box)<{ marginTop: string }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: ${(props) => props.marginTop};
+`;
+
 const StyledBox = styled(Box)`
   display: flex;
   width: 100%;
   height: 100vh;
-  justify-cotent: space-between;
   flex-direction: row;
 
   ${media.small.down`
@@ -68,15 +84,13 @@ function NavLink(props: NavLinkProps) {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const handleNavigate = () => {
+    navigate(to);
+  };
+
   return (
-    <Box
-      marginTop={marginTop}
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      onClick={() => navigate(to)}
-    >
-      <Box style={{ position: 'relative' }} maxWidth="24px" maxHeight="24px">
+    <NavLinkContainer marginTop={marginTop} onClick={handleNavigate}>
+      <CommonIconContainer>
         <StyledMenuIcon
           fill={location.pathname === to ? colors.white : colors.gray}
         />
@@ -85,7 +99,7 @@ function NavLink(props: NavLinkProps) {
             <PointIcon />
           </div>
         )}
-      </Box>
+      </CommonIconContainer>
       <Box minHeight="18px">
         {location.pathname === to && (
           <Typography fontSize="12px" letterSpacing="0.4px">
@@ -93,7 +107,7 @@ function NavLink(props: NavLinkProps) {
           </Typography>
         )}
       </Box>
-    </Box>
+    </NavLinkContainer>
   );
 }
 
