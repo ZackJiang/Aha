@@ -83,7 +83,7 @@ const StyledArrowBox = styled(Box)`
 const StyledSkeleton = styled(Skeleton)`
   width: 219px;
   height: 146px;
-  backgroundcolor: #121212;
+  background-color: #121212;
 
   ${media.small.down`
     width: 100%;
