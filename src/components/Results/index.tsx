@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { uniqueId } from 'lodash';
 import styled from '@emotion/styled';
@@ -75,6 +75,8 @@ const ResultsBox = styled(Box)`
 `;
 
 const StyledArrowBox = styled(Box)`
+  cursor: pointer;
+
   ${media.small.down`
     display: none;
   `}
@@ -92,6 +94,7 @@ const StyledSkeleton = styled(Skeleton)`
 `;
 
 function Results() {
+  const navigate = useNavigate();
   const [results, setResults] = useState<Profile[]>([]);
   const location = useLocation();
   const [page, setPage] = useState(1);
@@ -120,7 +123,7 @@ function Results() {
     <Container>
       <Box>
         <TitleBox>
-          <StyledArrowBox>
+          <StyledArrowBox onClick={() => navigate('/')}>
             <Arrow />
           </StyledArrowBox>
 
