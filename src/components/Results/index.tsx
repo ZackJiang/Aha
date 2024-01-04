@@ -44,10 +44,12 @@ const TitleBox = styled(Box)`
 const StyledTypography = styled(Typography)`
   font-size: 30px;
   margin-left: 25px;
+  letter-spacing: 0.25px;
 
   ${media.small.down`
     font-size: 24px;
     margin-left: 0px;
+    letter-spacing: unset;
   `}
 `;
 

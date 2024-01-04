@@ -46,11 +46,13 @@ const StyledTab = styled(Tab)`
   color: #929292;
   text-transform: capitalize;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 24px;
+  letter-spacing: 0.15px;
 
   &.Mui-selected {
     color: #fff;
+    font-weight: 700;
   }
 `;
 
