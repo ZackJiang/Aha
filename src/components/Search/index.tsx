@@ -23,6 +23,10 @@ const SearchBox = styled(Box)`
   justify-content: center;
   padding: 54px 130px 87px;
 
+  ${media.medium.down`
+    padding: 54px 65px 87px;
+  `}
+
   ${media.small.down`
     padding: 0px 20px 24px;
   `}

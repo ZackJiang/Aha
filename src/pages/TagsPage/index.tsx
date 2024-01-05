@@ -11,14 +11,16 @@ import { Tag } from '../../common/types';
 import media from '../../common/constants';
 
 const Container = styled(Box)`
-  ${media.small.up`
-    width: 100%;
-    height: 100vh;
-    padding-top: 80px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    overflow-y: scroll;
+  width: 100%;
+  height: 100vh;
+  padding-top: 80px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
+
+  ${media.small.down`
+    padding-top: 0px;
   `}
 `;
 
@@ -38,16 +40,21 @@ const TagsBox = styled(Box)`
   margin-top: 24px;
   display: grid;
   column-gap: 24px;
+  grid-template-columns: repeat(5, 150px);
+  row-gap: 36px;
+
+  ${media.large.down`
+    grid-template-columns: repeat(4, 150px);
+  `}
+
+  ${media.medium.down`
+    grid-template-columns: repeat(3, 150px);
+  `}
 
   ${media.small.down`
     grid-template-columns: repeat(2, 150px);
     row-gap: 24px;
-     padding: 0px 25px;
-  `}
-
-  ${media.small.up`
-    grid-template-columns: repeat(5, 150px);
-    row-gap: 36px;
+    padding: 0px 25px;
   `}
 `;
 

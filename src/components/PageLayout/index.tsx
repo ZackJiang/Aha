@@ -43,6 +43,7 @@ const StyledBox = styled(Box)`
   width: 100%;
   height: 100vh;
   flex-direction: row;
+  min-width: 375px;
 
   ${media.small.down`
     flex-direction: column;

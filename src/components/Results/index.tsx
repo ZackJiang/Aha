@@ -13,18 +13,16 @@ import { Profile } from '../../common/types';
 import media from '../../common/constants';
 
 const Container = styled(Box)`
+  padding: 0px 20px;
+
   ${media.small.up`
     width: 100%;
     height: 100vh;
-    padding-top: 92px;
+    padding: 92px 48px 0px;
     box-sizing: border-box;
     overflow-y: scroll;
     display: flex;
     justify-content: center;
-  `}
-
-  ${media.small.down`
-    padding: 0px 20px;
   `}
 `;
 
@@ -54,23 +52,24 @@ const StyledTypography = styled(Typography)`
 `;
 
 const ResultsBox = styled(Box)`
+  grid-template-columns: repeat(1, 1fr);
   margin-top: 24px;
   display: grid;
-  row-gap: 31px;
-
-  ${media.small.down`
-    grid-template-columns: repeat(1, 1fr);
-    column-gap: 0px;
-    row-gap: 40px;
-  `}
+  column-gap: 0px;
+  row-gap: 40px;
 
   ${media.small.up`
-    grid-template-columns: repeat(3, 219px);
+    grid-template-columns: repeat(2, 219px);
     column-gap: 34px;
+    row-gap: 31px;
 
     & > :nth-child(n+7) {
       margin-top: 19px;
     }
+  `};
+
+  ${media.medium.up`
+    grid-template-columns: repeat(3, 219px);
   `};
 `;
 
@@ -135,7 +134,7 @@ function Results() {
           ))}
 
           {loading &&
-            Array.from({ length: 6 }).map(() => (
+            Array.from({ length: 3 }).map(() => (
               <StyledSkeleton
                 variant="rectangular"
                 key={uniqueId('skeleton-')}
