@@ -142,7 +142,7 @@ function Results() {
             ))}
         </ResultsBox>
 
-        {results.length && page < totalPages && (
+        {results.length > 0 && page < totalPages && (
           <Box sx={{ marginTop: '39px' }}>
             <Button
               text="More"
@@ -152,6 +152,8 @@ function Results() {
             />
           </Box>
         )}
+
+        {results.length === 0 && <Typography>Not found...</Typography>}
       </Box>
     </Container>
   );
