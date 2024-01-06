@@ -139,7 +139,7 @@ function Search() {
       return;
     }
     setError('');
-    navigate(`?page=${1}&pageSize=${sliderValue}&keyword=${keyword}`);
+    navigate(`?pageSize=${sliderValue}&keyword=${keyword}`);
   };
 
   return (
